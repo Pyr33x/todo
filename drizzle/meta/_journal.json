@@ -8,6 +8,20 @@
       "when": 1731608794483,
       "tag": "0000_huge_vision",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1731612412526,
+      "tag": "0001_heavy_jean_grey",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1731612849238,
+      "tag": "0002_complete_ego",
+      "breakpoints": true
     }
   ]
 }

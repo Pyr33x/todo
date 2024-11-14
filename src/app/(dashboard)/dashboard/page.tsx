@@ -1,4 +1,6 @@
-import { Session } from "~/app/(dashboard)/dashboard/session";
+import { Session } from "~/app/(dashboard)/dashboard/_components/session";
+import { TodoForm } from "~/app/(dashboard)/dashboard/_components/form";
+import { Todos } from "~/app/(dashboard)/dashboard/_components/todo";
 import { GithubIcon } from "~/components/icons";
 import { CornerDownLeft } from "lucide-react";
 import { auth, signIn } from "~/server/auth";
@@ -47,6 +49,10 @@ export default async function Dashboard() {
       <div className="flex flex-col items-center justify-center">
         <Session />
         <hr className="w-full border-t border-t-neutral-800 my-6" />
+        <TodoForm />
+        <div className="mt-5">
+          <Todos />
+        </div>
       </div>
     </section>
   );
