@@ -14,6 +14,7 @@
     "next": "15.0.3"
   },
   "devDependencies": {
+    "@radix-ui/react-slot": "^1.1.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
