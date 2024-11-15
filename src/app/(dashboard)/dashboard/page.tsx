@@ -11,7 +11,8 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Todo | Dashboard",
+  description:
+    "Add, remove and edit your todos. You have full access to your todos.",
 };
 
 export default async function Dashboard() {
