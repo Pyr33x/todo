@@ -20,10 +20,10 @@ export default async function Dashboard() {
   if (!session)
     return (
       <div className="max-w-4xl px-4 lg:px-0">
-        <h1 className="text-center text-3xl font-black tracking-tight text-foreground lg:text-5xl">
+        <h1 className="text-center text-3xl font-black tracking-tight text-foreground md:text-5xl">
           Restricted
         </h1>
-        <p className="mt-2 max-w-2xl text-wrap text-center text-lg font-medium tracking-tight text-foreground/60 lg:text-xl">
+        <p className="mt-2 max-w-sm md:max-w-2xl text-wrap text-center text-lg font-medium tracking-tight text-foreground/60 lg:text-xl">
           You must sign in to your github account to access the dashboard.
         </p>
         <div className="mt-6 flex flex-row flex-wrap items-center justify-center gap-x-2">
@@ -33,7 +33,10 @@ export default async function Dashboard() {
               await signIn("github");
             }}
           >
-            <Button variant="home" className="group">
+            <Button
+              variant="home"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground hover:text-primary-foreground/90 group"
+            >
               <GithubIcon className="mr-2 h-4 w-4 fill-white" />
               Continue with Github
             </Button>
