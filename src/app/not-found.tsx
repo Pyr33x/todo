@@ -11,7 +11,7 @@ export default async function Custom404() {
         Not Found
       </h1>
       <p className="mt-2 max-w-sm text-wrap text-center font-medium tracking-tight text-foreground/60 text-xl">
-        Couldn't find the requested resource.
+        {"Couldn't find the requested resource."}
       </p>
       <div className="mt-6 flex flex-row flex-wrap items-center justify-center gap-x-2">
         {session ? (
