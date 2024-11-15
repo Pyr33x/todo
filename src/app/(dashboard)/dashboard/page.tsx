@@ -8,6 +8,8 @@ import { Button } from "~/components/ui";
 import type { Metadata } from "next";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Todo | Dashboard",
 };
@@ -16,7 +18,7 @@ export default async function Dashboard() {
   const session = await auth();
   if (!session)
     return (
-      <div className="px-6">
+      <div className="max-w-4xl px-6">
         <h1 className="text-center text-3xl font-black tracking-tight text-foreground lg:text-5xl">
           Restricted
         </h1>
@@ -50,7 +52,7 @@ export default async function Dashboard() {
         <Session />
         <hr className="w-full border-t border-t-neutral-800 my-6" />
         <TodoForm />
-        <div className="mt-5">
+        <div className="mt-5 flex flex-col">
           <Todos />
         </div>
       </div>

@@ -22,6 +22,20 @@
       "when": 1731612849238,
       "tag": "0002_complete_ego",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1731655437170,
+      "tag": "0003_nice_lionheart",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1731656303788,
+      "tag": "0004_broad_hitman",
+      "breakpoints": true
     }
   ]
 }

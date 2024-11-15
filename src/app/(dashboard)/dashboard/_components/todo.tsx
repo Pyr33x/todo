@@ -1,8 +1,9 @@
 import { Input, Skeleton } from "~/components/ui";
-import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { db, todos } from "~/server/db";
+import React, { Suspense } from "react";
+import { auth } from "~/server/auth";
 import { sql } from "drizzle-orm";
-import { Suspense } from "react";
 
 async function toggleCompleted(id: number, completed: boolean) {
   await db
@@ -11,40 +12,44 @@ async function toggleCompleted(id: number, completed: boolean) {
     .where(sql`${todos.id} = ${id}`);
 }
 
-async function AllTodos({ searchParams }: { searchParams?: { asc: string } }) {
+export async function Todos() {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) throw new Error("User is not authenticated");
+
   const nts = await db
     .select()
     .from(todos)
-    .limit(10)
-    .orderBy(searchParams?.asc ? sql`${todos.id} ASC` : sql`${todos.id} DESC`);
+    .where(sql`${todos.userId} = ${userId}`)
+    .orderBy(sql`ID DESC`);
   return (
-    <div className="flex flex-col">
-      {nts.map((note) => (
-        <div key={note.id} className="flex flex-row items-center   gap-x-2">
-          <Input
-            type="checkbox"
-            name="todo"
-            checked={note.completed!}
-            className={`appearance-none size-4 p-0 rounded bg-rose-500 mt-1 checked:bg-green-500`}
-            onChange={async () => {
-              "use server";
-              toggleCompleted(note.id, note.completed!);
-              return redirect("/dashboard");
-            }}
-          />
-          <p className="checked:line-through text-2xl text-foreground/90 select-none">
-            {note.todo}
-          </p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-export function Todos() {
-  return (
-    <Suspense fallback={<Skeleton className="h-10" />}>
-      <AllTodos />
+    <Suspense fallback={<Skeleton className="h-10 w-full" />}>
+      <ul>
+        {nts.map((note) => (
+          <li
+            className="h-24 my-1 px-4 w-full text-xl inline-flex items-center justify-start rounded-md border-neutral-800 bg-neutral-900"
+            key={note.id}
+          >
+            <Input
+              type="checkbox"
+              name="todo"
+              checked={note.completed!}
+              className="appearance-none mr-2 hover:cursor-pointer size-12 p-0 rounded bg-rose-500 mt-1 checked:bg-green-500"
+              onChange={async () => {
+                "use server";
+                toggleCompleted(note.id, note.completed!);
+                revalidatePath("/dashboard");
+              }}
+            />
+            <div className="flex flex-col">
+              <p className="text-2xl text-foreground/90 select-none">
+                {note.todo}
+              </p>
+              <p>{note.createdAt?.toLocaleString()}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
     </Suspense>
   );
 }

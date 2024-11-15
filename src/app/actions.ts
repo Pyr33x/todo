@@ -1,11 +1,14 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { db, todos } from "~/server/db";
-import { redirect } from "next/navigation";
 
-export async function createTodo(form: FormData) {
+export async function createTodo(form: FormData, userId: string) {
   const todo = form.get("todo");
-  if (!todo) return;
-  // await db.insert(todos).values({ todo });
-  redirect("/dashboard");
+  if (!todo || typeof todo !== "string") {
+    throw new Error("Todo text is required");
+  }
+
+  await db.insert(todos).values({ todo, userId });
+  revalidatePath("/dashboard");
 }

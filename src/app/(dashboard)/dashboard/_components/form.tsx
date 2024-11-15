@@ -1,22 +1,28 @@
-// import { createTodo } from "~/app/actions";
 import { Button, Input } from "~/components/ui";
-import { redirect } from "next/navigation";
-import { db, todos } from "~/server/db";
+import { createTodo } from "~/app/actions";
+import { auth } from "~/server/auth";
 import Form from "next/form";
 
-export function TodoForm() {
-  async function createTodo(form: FormData) {
+export async function TodoForm() {
+  const session = await auth();
+  async function handleSubmit(form: FormData) {
     "use server";
-    const todo = form.get("todo");
-    if (!todo) return;
-    //@ts-expect-error
-    await db.insert(todos).values({ todo });
-    return redirect("/dashboard");
+    const userId = session?.user?.id;
+    if (!userId) throw new Error("User is not authenticated");
+    await createTodo(form, userId);
   }
   return (
-    <Form action={createTodo} className="flex flex-row space-x-2">
-      <Input name="todo" id="todo" placeholder="Enter todo..." maxLength={10} />
-      <Button type="submit">📧</Button>
+    <Form className="flex flex-row space-x-2" action={handleSubmit}>
+      <Input
+        name="todo"
+        id="todo"
+        placeholder="Enter todo..."
+        maxLength={10}
+        disabled={!session}
+      />
+      <Button disabled={!session} type="submit">
+        📧
+      </Button>
     </Form>
   );
 }
