@@ -12,6 +12,14 @@ async function toggleCompleted(id: number, completed: boolean) {
     .where(sql`${todos.id} = ${id}`);
 }
 
+function Card({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <li className="h-12 my-1 py-10 px-6 lg:py-12 lg:px-8 w-full text-xl transform transition ease-in-out duration-75 hover:bg-neutral-900 border inline-flex items-center justify-start rounded-md border-neutral-900 bg-neutral-900/30">
+      {children}
+    </li>
+  );
+}
+
 export async function Todos() {
   const session = await auth();
   const userId = session?.user?.id;
@@ -23,18 +31,15 @@ export async function Todos() {
     .where(sql`${todos.userId} = ${userId}`)
     .orderBy(sql`ID DESC`);
   return (
-    <Suspense fallback={<Skeleton className="h-10 w-full" />}>
-      <ul>
+    <Suspense fallback={<Skeleton className="h-12 w-full" />}>
+      <ul className="grid grid-cols-2 sm:grid-cols-3 gap-2">
         {nts.map((note) => (
-          <li
-            className="h-24 my-1 px-4 w-full text-xl inline-flex items-center justify-start rounded-md border-neutral-800 bg-neutral-900"
-            key={note.id}
-          >
+          <Card key={note.id}>
             <Input
               type="checkbox"
               name="todo"
               checked={note.completed!}
-              className="appearance-none mr-2 hover:cursor-pointer size-12 p-0 rounded bg-rose-500 mt-1 checked:bg-green-500"
+              className="appearance-none mr-4 hover:cursor-pointer size-6 p-0 rounded bg-neutral-700 mt-1 checked:bg-orange-500"
               onChange={async () => {
                 "use server";
                 toggleCompleted(note.id, note.completed!);
@@ -42,12 +47,14 @@ export async function Todos() {
               }}
             />
             <div className="flex flex-col">
-              <p className="text-2xl text-foreground/90 select-none">
+              <p className="text-xl lg:text-2xl text-foreground font-medium">
                 {note.todo}
               </p>
-              <p>{note.createdAt?.toLocaleString()}</p>
+              <time className="text-base text-neutral-400 select-none">
+                {note.createdAt?.toLocaleTimeString()}
+              </time>
             </div>
-          </li>
+          </Card>
         ))}
       </ul>
     </Suspense>

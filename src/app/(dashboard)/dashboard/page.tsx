@@ -19,7 +19,7 @@ export default async function Dashboard() {
   const session = await auth();
   if (!session)
     return (
-      <div className="max-w-4xl px-6">
+      <div className="max-w-4xl px-4 lg:px-0">
         <h1 className="text-center text-3xl font-black tracking-tight text-foreground lg:text-5xl">
           Restricted
         </h1>
@@ -51,9 +51,9 @@ export default async function Dashboard() {
     <section className="max-w-4xl px-4 lg:px-0">
       <div className="flex flex-col items-center justify-center">
         <Session />
-        <hr className="w-full border-t border-t-neutral-800 my-6" />
+        <hr className="w-full rounded-full border-t border-t-neutral-800 my-6" />
         <TodoForm />
-        <div className="mt-5 flex flex-col">
+        <div className="mt-5">
           <Todos />
         </div>
       </div>
