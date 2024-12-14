@@ -15,17 +15,15 @@ export async function Navigation() {
               Todo
             </span>
           </Link>
-          <div className="flex flex-row gap-2 items-center">
+          <div className="flex flex-row space-x-2 items-center">
             {session && dashboard && (
               <Link
                 href={dashboard.path}
                 className="text-lg font-medium transform text-white/80 transition-colors duration-75 hover:text-white"
               >
-                {dashboard.title}
+                <Button size="sm">{dashboard.title}</Button>
               </Link>
             )}
-          </div>
-          <div className="flex flex-row space-x-2 items-center">
             {session ? (
               <form
                 action={async () => {
@@ -33,7 +31,9 @@ export async function Navigation() {
                   await signOut({ redirectTo: "/" });
                 }}
               >
-                <Button size="sm">Logout</Button>
+                <Button size="sm" variant="destructive">
+                  Logout
+                </Button>
               </form>
             ) : (
               <form

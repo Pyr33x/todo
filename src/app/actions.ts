@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { db, todos } from "~/server/db";
+import { db, todos, type NewTodo } from "~/server/db";
 
 export async function createTodo(form: FormData, userId: string) {
   const todo = form.get("todo");
@@ -9,6 +9,12 @@ export async function createTodo(form: FormData, userId: string) {
     throw new Error("Todo text is required");
   }
 
-  await db.insert(todos).values({ todo, userId });
+  const newTodo: NewTodo = {
+    todo,
+    userId,
+    completed: false,
+  };
+
+  await db.insert(todos).values(newTodo);
   revalidatePath("/dashboard");
 }
