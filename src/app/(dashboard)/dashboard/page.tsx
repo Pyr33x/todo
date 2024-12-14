@@ -8,7 +8,7 @@ import { Button } from "~/components/ui";
 import type { Metadata } from "next";
 import Link from "next/link";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 10;
 
 export const metadata: Metadata = {
   description:
@@ -43,8 +43,8 @@ export default async function Dashboard() {
           </form>
           <Link href="/">
             <Button variant="home">
-              <CornerDownLeft className="mr-2 h-4 w-4" />
               Return Home
+              <CornerDownLeft className="ml-2 h-4 w-4" />
             </Button>
           </Link>
         </div>
@@ -52,11 +52,11 @@ export default async function Dashboard() {
     );
   return (
     <section className="max-w-4xl px-4 lg:px-0">
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center w-full">
         <Session />
         <hr className="w-full rounded-full border-t border-t-neutral-800 my-6" />
         <TodoForm />
-        <div className="mt-5">
+        <div className="mt-5 w-full">
           <Todos />
         </div>
       </div>

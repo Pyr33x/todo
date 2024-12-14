@@ -29,7 +29,7 @@ export async function Todos() {
     .orderBy(todos.createdAt);
 
   return (
-    <Suspense fallback={<Skeleton className="h-12 w-full" />}>
+    <Suspense fallback={<Skeleton className="h-11" />}>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
         {nts.map(({ id, todo, completed, createdAt }) => (
           <Card key={id}>

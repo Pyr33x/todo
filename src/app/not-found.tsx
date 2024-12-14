@@ -1,40 +1,34 @@
-import { CornerDownLeft, Link } from "lucide-react";
 import { GithubIcon } from "~/components/icons";
+import { CornerDownLeft } from "lucide-react";
 import { Button } from "~/components/ui";
-import { signIn, auth } from "~/server/auth";
+import Link from "next/link";
 
-export default async function Custom404() {
-  const session = await auth();
+export default function NotFound() {
   return (
-    <section className="max-w-4xl px-4 lg:px-0">
-      <h1 className="text-center font-black tracking-tight text-foreground text-5xl">
+    <section>
+      <h1 className="text-2xl md:text-4xl font-bold text-foreground text-center">
         Not Found
       </h1>
-      <p className="mt-2 max-w-sm text-wrap text-center font-medium tracking-tight text-foreground/60 text-xl">
+      <p className=" text-xl md:text-2xl mt-1 font-medium text-muted-foreground text-center">
         {"Couldn't find the requested resource."}
       </p>
-      <div className="mt-6 flex flex-row flex-wrap items-center justify-center gap-x-2">
-        {session ? (
-          <Button
-            disabled
-            className="bg-primary disabled:cursor-not-allowed hover:bg-primary/90 text-primary-foreground hover:text-primary-foreground/90"
-          >
-            <GithubIcon className="mr-2 h-4 w-4 fill-white" />
-            {session ? "You already signed in" : "Continue with Github"}
+      <div className="mt-6 flex flex-row flex-wrap items-center justify-center gap-2">
+        <a
+          href="https://github.com/pyr33x/todo"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Button>
+            <GithubIcon className="mr-2 h-4 w-4" />
+            Star on Github
           </Button>
-        ) : (
-          <form
-            action={async () => {
-              "use server";
-              await signIn("github", { redirectTo: "/dashboard" });
-            }}
-          >
-            <Button className="bg-primary disabled:cursor-not-allowed hover:bg-primary/90 text-primary-foreground hover:text-primary-foreground/90">
-              <GithubIcon className="mr-2 h-4 w-4 fill-white" />
-              {session ? "You already signed in" : "Continue with Github"}
-            </Button>
-          </form>
-        )}
+        </a>
+        <Link href="/">
+          <Button variant="secondary">
+            Return Home
+            <CornerDownLeft className="ml-2 h-4 w-4" />
+          </Button>
+        </Link>
       </div>
     </section>
   );

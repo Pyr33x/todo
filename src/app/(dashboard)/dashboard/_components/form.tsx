@@ -12,7 +12,7 @@ export async function TodoForm() {
     await createTodo(form, userId);
   }
   return (
-    <Form className="flex flex-row space-x-2" action={handleSubmit}>
+    <Form className="flex flex-row space-x-2 w-full" action={handleSubmit}>
       <Input
         name="todo"
         id="todo"

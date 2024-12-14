@@ -3,13 +3,12 @@ import type { Metadata } from "next";
 import { inter } from "~/app/fonts";
 import "~/styles/globals.css";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: {
     default: "Todo",
     template: "%s | Todo",
   },
-  description:
-    "A simple todo app with authentication, routing, and data fetching.",
+  description: "A simple todo app with authentication and database.",
   applicationName: "Todo",
   appleWebApp: {
     statusBarStyle: "default",
@@ -21,6 +20,10 @@ export const metadata = {
   formatDetection: {
     telephone: false,
   },
+  authors: {
+    name: "Mehdi Parandak",
+    url: "https://pyr33x.ir",
+  },
   creator: "Mehdi Parandak",
   manifest: "/site.webmanifest",
   icons: {
@@ -28,7 +31,7 @@ export const metadata = {
     shortcut: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
-} satisfies Metadata;
+};
 
 export default function RootLayout({
   children,
