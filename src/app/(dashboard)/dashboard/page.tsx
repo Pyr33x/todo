@@ -52,7 +52,7 @@ export default async function Dashboard() {
     );
   return (
     <section className="max-w-4xl px-4 lg:px-0">
-      <div className="flex flex-col items-center justify-center w-full">
+      <div className="flex flex-col items-center justify-center">
         <Session />
         <hr className="w-full rounded-full border-t border-t-neutral-800 my-6" />
         <TodoForm />
