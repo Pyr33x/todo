@@ -41,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} antialiased w-full h-full bg-neutral-950 scroll-smooth selection:bg-neutral-800 selection:text-white`}
+        className={`${inter.className} antialiased w-full h-full bg-neutral-950 scroll-smooth selection:bg-neutral-800 selection:text-white relative`}
       >
         <Navigation />
         <main className="min-h-screen flex flex-col items-center justify-center py-32">
